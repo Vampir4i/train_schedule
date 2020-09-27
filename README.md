@@ -1,4 +1,4 @@
-# train_sheduler
+# train_schedule
 
 A new Flutter application.
 

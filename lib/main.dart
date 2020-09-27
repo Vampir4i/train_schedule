@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:train_schedule/components/RequestForm.dart';
 import 'package:train_schedule/components/TrainsList.dart';
@@ -59,11 +60,31 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Container(
-            height: 100,
-            child: TrainsList(),
-          ),
           RequestForm(),
+          Container(
+            height:
+                Provider.of<FormModel>(context).schedule.length * 58.toDouble(),
+            margin: EdgeInsets.all(5),
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              // color: Colors.grey[100],
+              border: Border.all(
+                color: Colors.grey[200],
+                width: 2,
+              ),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: ListView.builder(
+              itemCount: Provider.of<FormModel>(context).schedule.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(
+                    Provider.of<FormModel>(context).schedule[index].route,
+                  ),
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
