@@ -78,9 +78,9 @@ class FormModel with ChangeNotifier {
 
   getSchedules() async {
     String response =
-        await StationAPI.getSchedule('3489', '3740');
-        // await StationAPI.getSchedule(sourceStation.id, destinationStation.id);
-    _schedule = StationAPI.decodeHTML(response);
+        await StationAPI.getSchedule(sourceStation.id, destinationStation.id);
+    var document = StationAPI.decodeHTML(response);
+    _schedule = StationAPI.transformToScheduleModel(document);
     notifyListeners();
   }
 }

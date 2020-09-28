@@ -19,8 +19,7 @@ class EnterButton extends StatelessWidget {
         vertical: 15,
       ),
       onPressed: () {
-        model.getSchedules();
-        // if (Form.of(context).validate()) model.getSchedules();
+        if (Form.of(context).validate()) model.getSchedules();
       },
       child: Text(
         'Показати',

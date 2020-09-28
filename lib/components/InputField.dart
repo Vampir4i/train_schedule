@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:train_schedule/models/StationModel.dart';
 
 class InputField extends StatelessWidget {
   TextEditingController _controller;
   final String _textField;
   final Function _setTextField;
   final String _hintField;
+  final StationModel _stationModel;
 
-  InputField(this._hintField, this._textField, this._setTextField) {
+  InputField(
+    this._hintField,
+    this._textField,
+    this._stationModel,
+    this._setTextField,
+  ) {
     _controller = TextEditingController();
     _controller.value = TextEditingValue(
       text: _textField,
@@ -40,6 +47,8 @@ class InputField extends StatelessWidget {
       validator: (value) {
         if (value.isEmpty)
           return 'Поле не повинно бути порожнім';
+        else if (_stationModel == null)
+          return 'Інформація вказана не вірно';
         else
           return null;
       },

@@ -24,21 +24,27 @@ class StationAPI {
     return json.decode(response).cast<Map<String, dynamic>>();
   }
 
-  static List<ScheduleModel> decodeHTML(String response) {
+  static dynamic decodeHTML(String response) {
+    return parse(response);
+  }
+
+  static List<ScheduleModel> transformToScheduleModel(var document) {
     List<ScheduleModel> schedule = [];
-    var document = parse(response);
     var table = document.getElementsByClassName('td_center')[0];
     var rows = table.getElementsByTagName('tr');
     if (rows.length == 4) return schedule;
     for (int i = 4; i < rows.length; i += 2) {
-      List children = rows[i].children;
-      ScheduleModel model = ScheduleModel(
-        children[2].text,
-        children[3].text,
-        children[5].text,
-        children[7].text,
+      schedule.add(
+        ScheduleModel(
+          (rows[i].children[2].text as String).split(' – ')[0],
+          (rows[i].children[2].text as String).split(' – ')[1],
+          rows[i].children[3].text == '–'
+              ? rows[i].children[4].text
+              : rows[i].children[3].text,
+          rows[i].children[5].text,
+          rows[i].children[7].text,
+        ),
       );
-      schedule.add(model);
     }
     return schedule;
   }

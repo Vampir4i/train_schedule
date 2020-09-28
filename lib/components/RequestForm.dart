@@ -31,6 +31,7 @@ class RequestForm extends StatelessWidget {
             InputField(
               'Відправлення',
               model.fieldSource,
+              model.sourceStation,
               model.setFieldSource,
             ),
             PossibleStation(
@@ -40,6 +41,7 @@ class RequestForm extends StatelessWidget {
             InputField(
               'Прибуття',
               model.fieldDestination,
+              model.destinationStation,
               model.setFieldDestination,
             ),
             PossibleStation(

@@ -1,11 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:train_schedule/components/RequestForm.dart';
-import 'package:train_schedule/components/TrainsList.dart';
+import 'package:train_schedule/components/ScheduleBlock.dart';
 import 'package:train_schedule/providers/FormModel.dart';
 import 'package:train_schedule/providers/ThemeModel.dart';
 import 'package:train_schedule/providers/TrainsModel.dart';
+
+/*
+TODO
+Повысить отказоустойчивость:
+  Отловить исключения
+  Проработать случай, если пришло пустое расписание
+Добавить выдор даты:
+  toggleButton и datePicker
+Добавить кнопку обмена
+Добавить экран избранных направлений:
+   Добавить кнопку добавления в избранное
+ Заменить цвета в темной и светлой темах
+ Добавить плавные анимации появления блоков с информацией
+ Тщательнее проработать появление блоков с возможными станциями
+ Автоматически устанавливать фокус на поле для ввода
+ Указывать область возможной станции
+ На будущее:
+  Добавить расписание для поездов
+ */
 
 void main() {
   runApp(
@@ -61,30 +79,7 @@ class MyHomePage extends StatelessWidget {
       body: Column(
         children: [
           RequestForm(),
-          Container(
-            height:
-                Provider.of<FormModel>(context).schedule.length * 58.toDouble(),
-            margin: EdgeInsets.all(5),
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              // color: Colors.grey[100],
-              border: Border.all(
-                color: Colors.grey[200],
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: ListView.builder(
-              itemCount: Provider.of<FormModel>(context).schedule.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(
-                    Provider.of<FormModel>(context).schedule[index].route,
-                  ),
-                );
-              },
-            ),
-          ),
+          ScheduleBlock(),
         ],
       ),
     );

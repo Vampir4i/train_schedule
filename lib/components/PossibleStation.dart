@@ -17,7 +17,6 @@ class PossibleStation extends StatelessWidget {
             margin: EdgeInsets.symmetric(
               vertical: 5,
             ),
-            // padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
               // color: Colors.grey[100],
               border: Border.all(
