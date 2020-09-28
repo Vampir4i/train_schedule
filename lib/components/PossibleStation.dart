@@ -11,9 +11,8 @@ class PossibleStation extends StatelessWidget {
   Widget build(BuildContext context) {
     return _stations.isNotEmpty
         ? Container(
-            height: (_stations.length < 4
-                ? _stations.length * 58
-                : 4 * 58).toDouble(),
+            height: (_stations.length < 4 ? _stations.length * 58 : 4 * 58)
+                .toDouble(),
             margin: EdgeInsets.symmetric(
               vertical: 5,
             ),
@@ -30,8 +29,12 @@ class PossibleStation extends StatelessWidget {
               itemBuilder: (context, index) {
                 return ListTile(
                   onTap: () => _setStation(_stations[index]),
-                  title: Text(
-                    _stations[index].label,
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(_stations[index].label),
+                      Text(_stations[index].info),
+                    ],
                   ),
                 );
               },

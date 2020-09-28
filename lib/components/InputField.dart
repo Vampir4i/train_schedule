@@ -5,15 +5,12 @@ class InputField extends StatelessWidget {
   TextEditingController _controller;
   final String _textField;
   final Function _setTextField;
+  final Function _clearTextField;
   final String _hintField;
   final StationModel _stationModel;
 
-  InputField(
-    this._hintField,
-    this._textField,
-    this._stationModel,
-    this._setTextField,
-  ) {
+  InputField(this._hintField, this._textField, this._stationModel,
+      this._setTextField, this._clearTextField) {
     _controller = TextEditingController();
     _controller.value = TextEditingValue(
       text: _textField,
@@ -38,6 +35,10 @@ class InputField extends StatelessWidget {
         border: new OutlineInputBorder(
           borderRadius: new BorderRadius.circular(15),
           borderSide: new BorderSide(),
+        ),
+        suffixIcon: IconButton(
+          onPressed: () => _clearTextField(),
+          icon: Icon(Icons.clear),
         ),
       ),
       style: TextStyle(

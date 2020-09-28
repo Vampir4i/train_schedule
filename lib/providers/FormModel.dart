@@ -29,6 +29,20 @@ class FormModel with ChangeNotifier {
     notifyListeners();
   }
 
+  clearFieldSource() {
+    _fieldSource = '';
+    _sourceStation = null;
+    _sourceStations = [];
+    notifyListeners();
+  }
+
+  clearFieldDestination() {
+    _fieldDestination = '';
+    _destinationStation = null;
+    _destinationStations = [];
+    notifyListeners();
+  }
+
   String get fieldDestination => _fieldDestination ?? '';
 
   setFieldDestination(String stationName) {
@@ -81,6 +95,18 @@ class FormModel with ChangeNotifier {
         await StationAPI.getSchedule(sourceStation.id, destinationStation.id);
     var document = StationAPI.decodeHTML(response);
     _schedule = StationAPI.transformToScheduleModel(document);
+    notifyListeners();
+  }
+
+  swapField() {
+    dynamic tmp = _fieldSource;
+    _fieldSource = _fieldDestination;
+    _fieldDestination = tmp;
+    tmp = _sourceStation;
+    _sourceStation = _destinationStation;
+    _destinationStation = tmp;
+    _sourceStations = [];
+    _destinationStations = [];
     notifyListeners();
   }
 }

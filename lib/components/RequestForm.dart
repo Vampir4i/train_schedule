@@ -33,6 +33,7 @@ class RequestForm extends StatelessWidget {
               model.fieldSource,
               model.sourceStation,
               model.setFieldSource,
+              model.clearFieldSource,
             ),
             PossibleStation(
               model.sourceStations,
@@ -43,6 +44,7 @@ class RequestForm extends StatelessWidget {
               model.fieldDestination,
               model.destinationStation,
               model.setFieldDestination,
+              model.clearFieldDestination,
             ),
             PossibleStation(
               model.destinationStations,
