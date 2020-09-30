@@ -10,15 +10,12 @@ import 'package:train_schedule/providers/TrainsModel.dart';
 TODO
 Повысить отказоустойчивость:
   Отловить исключения
-  Проработать случай, если пришло пустое расписание
-*Добавить выбор даты:
-  *toggleButton и datePicker
+  *Проработать случай, если пришло пустое расписание
 Добавить экран избранных направлений:
    Добавить кнопку добавления в избранное
- Заменить цвета в темной и светлой темах
+ *Заменить цвета в темной и светлой темах
  Добавить плавные анимации появления блоков с информацией
  Тщательнее проработать появление блоков с возможными станциями
- *Автоматически устанавливать фокус на поле для ввода
  На будущее:
   Добавить расписание для поездов
  */
@@ -43,18 +40,11 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
-      themeMode: Provider.of<ThemeModel>(context).currentTheme(),
-      // theme: ThemeData(
-      //   primarySwatch: Colors.blue,
-      //   visualDensity: VisualDensity.adaptivePlatformDensity,
-      // ),
+      theme: Provider.of<ThemeModel>(context).currentTheme(),
       home: MyHomePage(),
     );
   }

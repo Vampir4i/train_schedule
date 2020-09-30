@@ -23,7 +23,8 @@ class RequestForm extends StatelessWidget {
       margin: EdgeInsets.all(5),
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        // color: Colors.grey[100],
+        // boxShadow: [BoxShadow()],
+        color: Theme.of(context).cardColor,
         border: Border.all(
           color: Colors.grey[200],
           width: 2,

@@ -36,6 +36,9 @@ class DatePickerBlock extends StatelessWidget {
             ? DatePicker(
                 DateTime.now(),
                 selectionColor: Theme.of(context).primaryColor,
+                dayTextStyle: Theme.of(context).textTheme.subtitle1,
+                monthTextStyle: Theme.of(context).textTheme.subtitle1,
+                dateTextStyle: Theme.of(context).textTheme.subtitle1,
                 locale: 'uk_UA',
                 onDateChange: (date) {
                   model.selectedDate = date.toString();

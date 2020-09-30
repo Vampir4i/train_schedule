@@ -38,7 +38,7 @@ class StationAPI {
     List<ScheduleModel> schedule = [];
     var table = document.getElementsByClassName('td_center')[0];
     var rows = table.getElementsByTagName('tr');
-    if (rows.length == 4) return schedule;
+    if (rows.length == 6) return schedule;
     for (int i = 4; i < rows.length; i += 2) {
       schedule.add(
         ScheduleModel(

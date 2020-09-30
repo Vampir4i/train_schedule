@@ -13,7 +13,7 @@ class ScheduleBlock extends StatelessWidget {
           : 5 * 72).toDouble(),
       margin: EdgeInsets.all(5),
       decoration: BoxDecoration(
-        // color: Colors.grey[100],
+        color: Theme.of(context).cardColor,
         border: Border.all(
           color: Colors.grey[200],
           width: 2,
