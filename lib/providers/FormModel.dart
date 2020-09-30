@@ -12,12 +12,25 @@ class FormModel with ChangeNotifier {
   StationModel _sourceStation;
   StationModel _destinationStation;
   List<ScheduleModel> _schedule = [];
+  bool _showPicker = false;
+  String _selectedDate = '';
 
   FormModel.primary();
 
   factory FormModel() {
     if (_instance == null) _instance = FormModel.primary();
     return _instance;
+  }
+
+  bool get showPicker => _showPicker;
+
+  set selectedDate(String value) {
+    _selectedDate = value.split(' ')[0];
+  }
+
+  changePicker() {
+    _showPicker = !_showPicker;
+    notifyListeners();
   }
 
   String get fieldSource => _fieldSource ?? '';
@@ -30,17 +43,37 @@ class FormModel with ChangeNotifier {
   }
 
   clearFieldSource() {
-    _fieldSource = '';
-    _sourceStation = null;
-    _sourceStations = [];
-    notifyListeners();
+    bool isChange = false;
+    if (_fieldSource.isNotEmpty) {
+      _fieldSource = '';
+      isChange = true;
+    }
+    if (_sourceStation != null) {
+      _sourceStation = null;
+      isChange = true;
+    }
+    if (_sourceStations.isNotEmpty) {
+      _sourceStations = [];
+      isChange = true;
+    }
+    if (isChange) notifyListeners();
   }
 
   clearFieldDestination() {
-    _fieldDestination = '';
-    _destinationStation = null;
-    _destinationStations = [];
-    notifyListeners();
+    bool isChange = false;
+    if (_fieldDestination.isNotEmpty) {
+      _fieldDestination = '';
+      isChange = true;
+    }
+    if (_destinationStation != null) {
+      _destinationStation = null;
+      isChange = true;
+    }
+    if (_destinationStations.isNotEmpty) {
+      _destinationStations = [];
+      isChange = true;
+    }
+    if (isChange) notifyListeners();
   }
 
   String get fieldDestination => _fieldDestination ?? '';
@@ -91,8 +124,13 @@ class FormModel with ChangeNotifier {
   List<ScheduleModel> get schedule => _schedule;
 
   getSchedules() async {
-    String response =
-        await StationAPI.getSchedule(sourceStation.id, destinationStation.id);
+    String response;
+    if (_showPicker) {
+      response = await StationAPI.getScheduleDate(
+          sourceStation.id, destinationStation.id, _selectedDate);
+    } else
+      response =
+          await StationAPI.getSchedule(sourceStation.id, destinationStation.id);
     var document = StationAPI.decodeHTML(response);
     _schedule = StationAPI.transformToScheduleModel(document);
     notifyListeners();
@@ -105,8 +143,18 @@ class FormModel with ChangeNotifier {
     tmp = _sourceStation;
     _sourceStation = _destinationStation;
     _destinationStation = tmp;
-    _sourceStations = [];
-    _destinationStations = [];
+    if (_sourceStations.isNotEmpty) _sourceStations = [];
+    if (_destinationStations.isNotEmpty) _destinationStations = [];
+    notifyListeners();
+  }
+
+  clearSourceStations() {
+    if (_sourceStations.isNotEmpty) _sourceStations = [];
+    notifyListeners();
+  }
+
+  clearDestinationStations() {
+    if (_destinationStations.isNotEmpty) _destinationStations = [];
     notifyListeners();
   }
 }

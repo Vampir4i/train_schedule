@@ -16,7 +16,13 @@ class StationAPI {
 
   static Future<String> getSchedule(String source, String destination) {
     return http
-        .get('${_url}sid=$source&sid2=$destination&lng=')
+        .get('${_url}sid=$source&sid2=$destination&dateR=0')
+        .then((response) => response.body);
+  }
+
+  static Future<String> getScheduleDate(String source, String destination, String date) {
+    return http
+        .get('${_url}sid=$source&sid2=$destination&dateR=1&startPicker2=$date')
         .then((response) => response.body);
   }
 

@@ -8,9 +8,9 @@ class ScheduleBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     FormModel model = Provider.of<FormModel>(context);
     return Container(
-      height: (model.schedule.length < 6
+      height: (model.schedule.length < 5
           ? model.schedule.length * 72
-          : 6 * 72).toDouble(),
+          : 5 * 72).toDouble(),
       margin: EdgeInsets.all(5),
       decoration: BoxDecoration(
         // color: Colors.grey[100],
