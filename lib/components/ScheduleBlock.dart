@@ -8,9 +8,9 @@ class ScheduleBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     FormModel model = Provider.of<FormModel>(context);
     return Container(
-      height: (model.schedule.length < 5
-          ? model.schedule.length * 72
-          : 5 * 72).toDouble(),
+      height: (model.schedule.length < 4
+          ? model.schedule.length * 90
+          : 4 * 90).toDouble(),
       margin: EdgeInsets.all(5),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
@@ -27,6 +27,15 @@ class ScheduleBlock extends StatelessWidget {
           return ListTile(
             title: Column(
               children: [
+                Text(
+                  '${model.schedule[index].route}',
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(5),
+                ),
                 PointSchedule(
                   model.schedule[index].source,
                   model.schedule[index].sourceArrival,
@@ -57,7 +66,7 @@ class PointSchedule extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 80),
+      padding: EdgeInsets.symmetric(horizontal: 30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

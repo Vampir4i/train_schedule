@@ -4,14 +4,18 @@ class ScheduleModel {
   final String _sourceArrival;
   final String _destinationArrival;
   final String _travelTime;
+  final String _route;
 
   ScheduleModel(
+    this._route,
     this._source,
     this._destination,
     this._sourceArrival,
     this._destinationArrival,
     this._travelTime,
   );
+
+  String get route => _route;
 
   String get source => _source;
 

@@ -42,6 +42,15 @@ class FormModel with ChangeNotifier {
     notifyListeners();
   }
 
+  String get fieldDestination => _fieldDestination ?? '';
+
+  setFieldDestination(String stationName) {
+    if (stationName.length >= 2) _getDestinationTrains(stationName);
+    if (_sourceStations.isNotEmpty) _sourceStations = [];
+    _fieldDestination = stationName;
+    notifyListeners();
+  }
+
   clearFieldSource() {
     bool isChange = false;
     if (_fieldSource.isNotEmpty) {
@@ -76,15 +85,6 @@ class FormModel with ChangeNotifier {
     if (isChange) notifyListeners();
   }
 
-  String get fieldDestination => _fieldDestination ?? '';
-
-  setFieldDestination(String stationName) {
-    if (stationName.length >= 2) _getDestinationTrains(stationName);
-    if (_sourceStations.isNotEmpty) _sourceStations = [];
-    _fieldDestination = stationName;
-    notifyListeners();
-  }
-
   List<StationModel> get sourceStations => _sourceStations;
 
   List<StationModel> get destinationStations => _destinationStations;
@@ -108,14 +108,18 @@ class FormModel with ChangeNotifier {
   }
 
   _getSourceTrains(String stationName) async {
+    if(stationName.isEmpty) return;
     String response = await StationAPI.getStationCode(stationName);
+    if (response == '' || response == null) return;
     List listResponse = StationAPI.decodeJSON(response);
     _sourceStations = StationAPI.transformToStationModel(listResponse);
     notifyListeners();
   }
 
   _getDestinationTrains(String stationName) async {
+    if(stationName.isEmpty) return;
     String response = await StationAPI.getStationCode(stationName);
+    if (response == '' || response == null) return;
     List listResponse = StationAPI.decodeJSON(response);
     _destinationStations = StationAPI.transformToStationModel(listResponse);
     notifyListeners();
@@ -155,6 +159,14 @@ class FormModel with ChangeNotifier {
 
   clearDestinationStations() {
     if (_destinationStations.isNotEmpty) _destinationStations = [];
+    notifyListeners();
+  }
+
+  selectFavorite(StationModel source, StationModel destination) {
+    _sourceStation = source;
+    _destinationStation = destination;
+    _fieldSource = source.label;
+    _fieldDestination = destination.label;
     notifyListeners();
   }
 }

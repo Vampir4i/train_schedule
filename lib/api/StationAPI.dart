@@ -20,7 +20,8 @@ class StationAPI {
         .then((response) => response.body);
   }
 
-  static Future<String> getScheduleDate(String source, String destination, String date) {
+  static Future<String> getScheduleDate(
+      String source, String destination, String date) {
     return http
         .get('${_url}sid=$source&sid2=$destination&dateR=1&startPicker2=$date')
         .then((response) => response.body);
@@ -38,12 +39,15 @@ class StationAPI {
     List<ScheduleModel> schedule = [];
     var table = document.getElementsByClassName('td_center')[0];
     var rows = table.getElementsByTagName('tr');
-    if (rows.length == 6) return schedule;
+    if (rows.length == 6 &&
+        (rows[4].children[0].text as String) ==
+            'Не знайдено маршрутів за вказаними параметрами') return schedule;
     for (int i = 4; i < rows.length; i += 2) {
       schedule.add(
         ScheduleModel(
-          (rows[i].children[2].text as String).split(' – ')[0],
-          (rows[i].children[2].text as String).split(' – ')[1],
+          rows[i].children[2].text,
+          rows[1].children[1].text,
+          rows[1].children[2].text,
           rows[i].children[3].text == '–'
               ? rows[i].children[4].text
               : rows[i].children[3].text,

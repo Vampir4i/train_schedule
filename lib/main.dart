@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:train_schedule/components/RequestForm.dart';
-import 'package:train_schedule/components/ScheduleBlock.dart';
+import 'package:train_schedule/pages/FavoritePage.dart';
+import 'package:train_schedule/pages/HomePage.dart';
+import 'package:train_schedule/providers/FavoriteModel.dart';
 import 'package:train_schedule/providers/FormModel.dart';
 import 'package:train_schedule/providers/ThemeModel.dart';
 import 'package:train_schedule/providers/TrainsModel.dart';
@@ -10,14 +11,11 @@ import 'package:train_schedule/providers/TrainsModel.dart';
 TODO
 Повысить отказоустойчивость:
   Отловить исключения
-  *Проработать случай, если пришло пустое расписание
-Добавить экран избранных направлений:
-   Добавить кнопку добавления в избранное
- *Заменить цвета в темной и светлой темах
+ *Добавить экран избранных направлений:
+ *Добавить кнопку добавления в избранное
  Добавить плавные анимации появления блоков с информацией
  Тщательнее проработать появление блоков с возможными станциями
- На будущее:
-  Добавить расписание для поездов
+ Рефактор верстки
  */
 
 void main() {
@@ -33,6 +31,9 @@ void main() {
         ChangeNotifierProvider<ThemeModel>(
           create: (context) => ThemeModel(),
         ),
+        ChangeNotifierProvider<FavoriteModel>(
+          create: (context) => FavoriteModel(),
+        )
       ],
       child: MyApp(),
     ),
@@ -43,33 +44,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: Provider.of<ThemeModel>(context).currentTheme(),
-      home: MyHomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (BuildContext context) => HomePage(),
+        '/favorites': (BuildContext context) => FavoritePage(),
+      },
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Розклад руху'),
-        actions: [
-          IconButton(
-            icon: ThemeModel().getIcon(),
-            onPressed: () =>
-                Provider.of<ThemeModel>(context, listen: false).switchTheme(),
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          RequestForm(),
-          ScheduleBlock(),
-        ],
-      ),
-    );
-  }
-}
+
